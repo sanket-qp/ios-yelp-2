@@ -36,7 +36,7 @@ class FilterController: UIViewController, UITableViewDelegate, UITableViewDataSo
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = UITableViewAutomaticDimension
-        items = [radiuses.count, sortBy.count, 2]
+        items = [radiuses.count, sortBy.count, 10]
     }
 
     override func didReceiveMemoryWarning() {
@@ -96,10 +96,9 @@ class FilterController: UIViewController, UITableViewDelegate, UITableViewDataSo
         case "Sort By":
             return sortCell(indexPath.row, expanded: expanded)
 
-        /*
         case "Categories":
             return categoryCell(indexPath.row, expanded: expanded)
-        */
+
         default:
             var cell = UITableViewCell()
             return cell
@@ -178,6 +177,9 @@ class FilterController: UIViewController, UITableViewDelegate, UITableViewDataSo
     }
     */
 
+    @IBAction func onCancelButton(sender: AnyObject) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
 
     @IBAction func searchClicked(sender: AnyObject) {
         
@@ -187,8 +189,7 @@ class FilterController: UIViewController, UITableViewDelegate, UITableViewDataSo
         if delegate != nil {
             
             delegate?.filtersChanged(prefs)
-            self.navigationController?.popViewControllerAnimated(true)
+            dismissViewControllerAnimated(true, completion: nil)
         }
-        
     }
 }

@@ -169,7 +169,8 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         if segue.identifier == "filterSegue" {
         
-            let filterController = segue.destinationViewController as FilterController
+            let filterNavigationController = segue.destinationViewController as UINavigationController
+            let filterController = filterNavigationController.viewControllers[0] as FilterController
             filterController.delegate = self
         }
     }

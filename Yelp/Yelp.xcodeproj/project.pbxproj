@@ -17,6 +17,15 @@
 		4590A56019CFA4C200529454 /* YelpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4590A55F19CFA4C200529454 /* YelpClient.swift */; };
 		4590A56519CFA54200529454 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4590A56419CFA54200529454 /* SearchResultCell.swift */; };
 		4590A56719CFA64300529454 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4590A56619CFA64300529454 /* SearchResult.swift */; };
+		4590A56919CFAE7900529454 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4590A56819CFAE7900529454 /* FilterViewController.swift */; };
+		4590A56B19CFB2C300529454 /* PriceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4590A56A19CFB2C300529454 /* PriceCell.swift */; };
+		4590A56D19CFB2DF00529454 /* SortCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4590A56C19CFB2DF00529454 /* SortCell.swift */; };
+		4590A56F19CFB30400529454 /* RadiusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4590A56E19CFB30400529454 /* RadiusCell.swift */; };
+		4590A57119CFD5E400529454 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4590A57019CFD5E400529454 /* CategoryCell.swift */; };
+		4590A57319D0A1E800529454 /* TempViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4590A57219D0A1E700529454 /* TempViewController.swift */; };
+		4590A57519D0A3CF00529454 /* TempCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4590A57419D0A3CF00529454 /* TempCell.swift */; };
+		4590A57719D0AABE00529454 /* FilterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4590A57619D0AABE00529454 /* FilterController.swift */; };
+		4590A57919D0B8A100529454 /* SearchPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4590A57819D0B8A100529454 /* SearchPreferences.swift */; };
 		785B17EFAB5048CC819A7BDC /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DF307A2BBEA54DDC9979F035 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +55,15 @@
 		4590A56119CFA4E500529454 /* Yelp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Yelp-Bridging-Header.h"; sourceTree = "<group>"; };
 		4590A56419CFA54200529454 /* SearchResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		4590A56619CFA64300529454 /* SearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
+		4590A56819CFAE7900529454 /* FilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
+		4590A56A19CFB2C300529454 /* PriceCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceCell.swift; sourceTree = "<group>"; };
+		4590A56C19CFB2DF00529454 /* SortCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortCell.swift; sourceTree = "<group>"; };
+		4590A56E19CFB30400529454 /* RadiusCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadiusCell.swift; sourceTree = "<group>"; };
+		4590A57019CFD5E400529454 /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
+		4590A57219D0A1E700529454 /* TempViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempViewController.swift; sourceTree = "<group>"; };
+		4590A57419D0A3CF00529454 /* TempCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempCell.swift; sourceTree = "<group>"; };
+		4590A57619D0AABE00529454 /* FilterController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterController.swift; sourceTree = "<group>"; };
+		4590A57819D0B8A100529454 /* SearchPreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPreferences.swift; sourceTree = "<group>"; };
 		A4E4BCB66B0F44B58B2661EC /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		DF307A2BBEA54DDC9979F035 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -135,7 +153,15 @@
 			isa = PBXGroup;
 			children = (
 				4590A55D19CFA3C200529454 /* ListViewController.swift */,
+				4590A56819CFAE7900529454 /* FilterViewController.swift */,
 				4590A56419CFA54200529454 /* SearchResultCell.swift */,
+				4590A56A19CFB2C300529454 /* PriceCell.swift */,
+				4590A56C19CFB2DF00529454 /* SortCell.swift */,
+				4590A56E19CFB30400529454 /* RadiusCell.swift */,
+				4590A57019CFD5E400529454 /* CategoryCell.swift */,
+				4590A57219D0A1E700529454 /* TempViewController.swift */,
+				4590A57419D0A3CF00529454 /* TempCell.swift */,
+				4590A57619D0AABE00529454 /* FilterController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -152,6 +178,7 @@
 			isa = PBXGroup;
 			children = (
 				4590A56619CFA64300529454 /* SearchResult.swift */,
+				4590A57819D0B8A100529454 /* SearchPreferences.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -299,12 +326,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4590A56919CFAE7900529454 /* FilterViewController.swift in Sources */,
+				4590A56F19CFB30400529454 /* RadiusCell.swift in Sources */,
 				4590A56019CFA4C200529454 /* YelpClient.swift in Sources */,
 				4590A53D19CFA37E00529454 /* ViewController.swift in Sources */,
 				4590A53B19CFA37E00529454 /* AppDelegate.swift in Sources */,
+				4590A56D19CFB2DF00529454 /* SortCell.swift in Sources */,
 				4590A55E19CFA3C200529454 /* ListViewController.swift in Sources */,
+				4590A56B19CFB2C300529454 /* PriceCell.swift in Sources */,
+				4590A57919D0B8A100529454 /* SearchPreferences.swift in Sources */,
+				4590A57319D0A1E800529454 /* TempViewController.swift in Sources */,
 				4590A56719CFA64300529454 /* SearchResult.swift in Sources */,
+				4590A57519D0A3CF00529454 /* TempCell.swift in Sources */,
 				4590A56519CFA54200529454 /* SearchResultCell.swift in Sources */,
+				4590A57119CFD5E400529454 /* CategoryCell.swift in Sources */,
+				4590A57719D0AABE00529454 /* FilterController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
