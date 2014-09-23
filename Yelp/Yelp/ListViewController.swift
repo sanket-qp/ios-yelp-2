@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchDisplayDelegate {
+class ListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UISearchDisplayDelegate, FiltersChangedDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     //@IBOutlet weak var filter2: UIBarButtonItem!
@@ -22,7 +22,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     let accessSecret = "j6-2z91Tq-PgkQrvGU1qZ0FCkKU"
     var yelpClient: YelpClient!
     var searchResults: [SearchResult] = []
-    var filterButton: UIBarButtonItem!
+    //var filterButton: UIBarButtonItem!
     var isSearch = false
     var filteredCategories: [String] = []
     
@@ -34,19 +34,22 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         searchDisplayController?.searchResultsTableView.delegate = self
         searchDisplayController?.searchResultsTableView.dataSource = self
         self.searchDisplayController?.displaysSearchBarInNavigationBar = true
-        /*
-        let sBar = UISearchBar()
-        sBar.sizeToFit()
-        let barWrapper = UIView(frame: sBar.bounds)
-        barWrapper.addSubview(sBar)
-        self.navigationItem.titleView = barWrapper
-        */
+        
+        let fButton = UIBarButtonItem(title: "Filter", style: UIBarButtonItemStyle.Plain, target: self, action:"clickFilter:")
+        fButton.tintColor = .blackColor()
+        self.navigationItem.leftBarButtonItem = fButton
         
         yelpClient = YelpClient(consumerKey: consumerKey, consumerSecret: consumerSecret, accessToken: accessToken, accessSecret: accessSecret)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshData:" , name: "searchFinished", object: nil)
         yelpClient.search("food", location: "Fremont", limit:10)
     }
     
+    
+    func clickFilter(sender: AnyObject) {
+    
+        println("click filter")
+        performSegueWithIdentifier("filterSegue", sender: self)
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -156,4 +159,18 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         println(self.filteredCategories.count)
     }
 
+    func filtersChanged(filters: SearchPreferences) {
+
+        println("List :: Filters Changed")
+        yelpClient.search("food", location: "Mountain View", limit: 10)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if segue.identifier == "filterSegue" {
+        
+            let filterController = segue.destinationViewController as FilterController
+            filterController.delegate = self
+        }
+    }
 }
