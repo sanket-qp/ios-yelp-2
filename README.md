@@ -17,6 +17,6 @@ Completed Features
 * Required: Radius filter should expand as in the real Yelp app
 * Required: Categories list expands
 * Required: Clicking on the "Search" button should dismiss the filters page and trigger the search w/ the new filter settings.
-
 * Extra: added auto complete feature for search bar
+
 ![GIF] (https://github.com/sanket-qp/ios-yelp-2/blob/master/yelp.gif)
