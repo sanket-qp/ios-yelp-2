@@ -25,6 +25,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     //var filterButton: UIBarButtonItem!
     var isSearch = false
     var filteredCategories: [String] = []
+    let searchPreferences = SearchPreferences.sharedInstance
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,13 +42,12 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         yelpClient = YelpClient(consumerKey: consumerKey, consumerSecret: consumerSecret, accessToken: accessToken, accessSecret: accessSecret)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshData:" , name: "searchFinished", object: nil)
-        yelpClient.search("food", location: "Fremont", limit:10)
+        yelpClient.search(searchPreferences.searchTerm)
     }
     
     
     func clickFilter(sender: AnyObject) {
     
-        println("click filter")
         performSegueWithIdentifier("filterSegue", sender: self)
     }
     
@@ -58,7 +58,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func refreshData(sender: AnyObject) {
         
-        
+        searchPreferences.searchTerm = searchBar.text
         searchResults = yelpClient.searchResults!
         println("search results : \(searchResults.count)")
         if (isSearch) {
@@ -137,19 +137,13 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         
         var searchFor = searchBar.text
-        println("Search button clicked : \(searchFor)")
         isSearch = true
         yelpClient.search(searchFor)
     }
     
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        
-        println("text changed : \(searchText)")
-    }
     
     func filterCategories(searchText: String) {
         
-        println("hello : searching for \(searchText)")
         self.filteredCategories = YelpClient.supportedCategories().filter({
             (category: String) -> Bool in
             let stringMatch = category.rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil, locale: nil)
@@ -161,8 +155,8 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     func filtersChanged(filters: SearchPreferences) {
 
-        println("List :: Filters Changed")
-        yelpClient.search("food", location: "Mountain View", limit: 10)
+        println("List :: Filters Changed :: \(filters.radiusText), \(filters.sortByText)")
+        yelpClient.search(filters.searchTerm)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

@@ -69,4 +69,9 @@ class YelpClient: BDBOAuth1RequestOperationManager {
         
         return categories
     }
+    
+    class func categoryDict() -> [String: String] {
+    
+        return ["Hello": "world"]
+    }
 }

@@ -26,17 +26,34 @@ class FilterController: UIViewController, UITableViewDelegate, UITableViewDataSo
     let radiuses = ["Auto", "0.3 miles", "1 mile", "5 mile", "20 mile"]
     var sortBy = ["Best Match", "Distance", "Highest Rated"]
     var items: [Int] = []
-
+    
+    let sortBySection = ["Best Match": 0, "Distance": 1, "Highest Rated": 2]
+    let distanceSection = ["Auto": 160, "0.3 Mile": 482, "1 Mile": 1609, "5 Mile": 8044, "20 Mile":  32186]
+    let categoriesSection = YelpClient.categoryDict
+    var allSections: [String: [String: String]]! = nil
+    var searchPreference = SearchPreferences.sharedInstance
+    var chosenRadius: Int = 160
+    var chosenSort = 0
+    var chosenCategories: [String] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
         self.navigationItem.backBarButtonItem?.tintColor = .blackColor()
         
-        // Do any additional setup after loading the view.
+        // load preferences
+        chosenRadius = searchPreference.radius
+        chosenCategories = searchPreference.categories
+        chosenSort = searchPreference.sortBy
+        println("chosen radius : \(chosenRadius)")
+        println("chosen sort : \(chosenSort)")
+        
+        // Do any additional setup after loading the view
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = UITableViewAutomaticDimension
         items = [radiuses.count, sortBy.count, 10]
+        //allSections = ["Distance": distanceSection, "Sort By": sortBySection, "Categories": categoriesSection]
     }
 
     override func didReceiveMemoryWarning() {
@@ -65,25 +82,54 @@ class FilterController: UIViewController, UITableViewDelegate, UITableViewDataSo
         
     }
     
+    
+    /*
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         if let expanded = isExpanded[indexPath.section] {
             
             isExpanded[indexPath.section] = !expanded
+            
         } else {
             
             isExpanded[indexPath.section] = true
             
         }
+        // toggle the switch and put this cell first
+        let sectionName = sections[indexPath.section]
+        var cell = tableView.cellForRowAtIndexPath(indexPath) as FilterCell
+        let selectedText = cell.filterLabel.text
+
+        switch sectionName {
+            
+            case "Categories":
+                cell.toggleSwitch()
+        
+            case "Distance":
+                searchPreference.radiusText = selectedText!
+                println(selectedText)
+                searchPreference.radius = distanceSection[selectedText!] ?? 160
+                cell.toggleSwitch()
+                //searchPreference.radius = distanceSection[selectedText!]!
+
+            default:
+                println("do nothing")
+        }
+        
         
         tableView.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: UITableViewRowAnimation.Fade)
+    } */
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        toggleSection(indexPath)
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let expanded = isExpanded[indexPath.section] ?? false
         let sectionName = sections[indexPath.section]
-        println("\(sectionName)")
+        
         switch sectionName {
             
         case "Price":
@@ -111,9 +157,84 @@ class FilterController: UIViewController, UITableViewDelegate, UITableViewDataSo
         return sections[section]
     }
     
+    func toggleSection(indexPath: NSIndexPath) {
+    
+        let expanded = isExpanded[indexPath.section] ?? false
+        
+        expanded ? collapseSection(indexPath) : expandSection(indexPath)
+        
+        tableView.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: UITableViewRowAnimation.Fade)
+    }
+    
+    func collapseSection(indexPath: NSIndexPath) {
+    
+        let section = indexPath.section
+        let row = indexPath.row
+        let sectionName = sections[section]
+        let cell = tableView.cellForRowAtIndexPath(indexPath) as FilterCell
+        let selected = cell.filterLabel.text
+        
+        switch sectionName {
+            
+        case "Price":
+            break
+            
+        case "Distance":
+            // if expanded then move the selected cell to the top and set the search preference
+            var r = distanceSection[selected!]
+            chosenRadius = r ?? 160
+            cell.toggleSwitch()
+            isExpanded[section] = false
+            
+
+        case "Sort By":
+            var s = sortBySection[selected!]
+            chosenSort = s ?? 0
+            cell.toggleSwitch()
+            isExpanded[section] = false
+            
+        case "Categories":
+            // we just toggle switch here, we never collapse categories section once it's expanded
+            //cell.filterSwitch.on ? searchPreference.removeCategory(selected!) : searchPreference.addCategory(selected!)
+            cell.filterSwitch.on ? removeCategory(selected!) : addCategory(selected!)
+            cell.toggleSwitch()
+            
+        default:
+            break
+            
+        }
+    }
+    
+    func expandSection(indexPath: NSIndexPath) {
+    
+    
+        isExpanded[indexPath.section] = true
+    }
+    
+    func addCategory(category: String) {
+    
+    
+        if let index = find(chosenCategories, category) {
+            
+            
+        } else {
+            
+            chosenCategories.append(category)
+        }
+    
+    }
+    
+    func removeCategory(category: String) {
+    
+        
+        if let index = find(chosenCategories, category) {
+            
+            chosenCategories.removeAtIndex(index)
+        }
+    }
+    
     func priceCell() -> UITableViewCell {
 
-        println("Price Cell")
         let segmentControl = UISegmentedControl(items: ["$", "$$", "$$$", "$$$$"])
         var cell = UITableViewCell()
         cell.addSubview(segmentControl!)
@@ -122,50 +243,36 @@ class FilterController: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     func distanceCell(row: Int, expanded: Bool) -> UITableViewCell  {
     
-        return getCell(radiuses[row], expanded: expanded, selected: false)
-        /*
-        var cell = UITableViewCell()
-        cell.textLabel?.text = radiuses[row]
-        return cell */
+        let distances = [String](distanceSection.keys)
+        let distanceString = distances[row]
+        let selected = chosenRadius == distanceSection[distanceString] ? true : false
+        return getCell(distances[row], expanded: expanded, selected: selected)
+
     }
     
     func sortCell(row: Int, expanded: Bool) -> UITableViewCell {
-    
-        var cell = UITableViewCell()
-        cell.textLabel?.text = sortBy[row]
-        return cell
+
+        let sorts = [String] (sortBySection.keys)
+        let sortString = sorts[row]
+        let selected = chosenSort == sortBySection[sortString] ? true : false
+        return getCell(sortBy[row], expanded: expanded, selected: selected)
     }
     
     func categoryCell(row: Int, expanded: Bool) -> UITableViewCell {
     
-        var cell = UITableViewCell()
-        cell.textLabel?.text = categories[row]
-        return cell
+        
+        return getCell(categories[row], expanded: expanded, selected: false)
     }
     
     
     func getCell(text: String, expanded: Bool, selected: Bool) -> UITableViewCell {
-    
-        var cell = UITableViewCell()
-        cell.textLabel?.text = ("Hello : \(text)")
-        
-        if (!expanded) {
-        
-            let view = UIImageView(image: UIImage(named: "Cell Expander"))
-            cell.accessoryType = UITableViewCellAccessoryType.Checkmark;
-            //cell.accessoryType = UITableViewCellAccessoryType.Checkmark;
-            cell.accessoryView = view
-        }
-        
-        if (selected) {
-        
-            cell.accessoryType = UITableViewCellAccessoryType.Checkmark;
-        }
 
-        cell.accessoryType = UITableViewCellAccessoryType.Checkmark;
+        var cell = tableView.dequeueReusableCellWithIdentifier("FilterCell") as FilterCell
+        cell.filterLabel.text = text
+        cell.filterSwitch.setOn(selected, animated: true)
         return cell
     }
-    
+
     
     /*
     // MARK: - Navigation
@@ -178,17 +285,22 @@ class FilterController: UIViewController, UITableViewDelegate, UITableViewDataSo
     */
 
     @IBAction func onCancelButton(sender: AnyObject) {
+        
+        // restore the old searchPreferences
         dismissViewControllerAnimated(true, completion: nil)
     }
 
     @IBAction func searchClicked(sender: AnyObject) {
         
-        println("search clicked")
-        let prefs = SearchPreferences()
+        // persist preferences
+        searchPreference = SearchPreferences.sharedInstance
+        searchPreference.radius = chosenRadius
+        searchPreference.sortBy = chosenSort
+        searchPreference.categories = chosenCategories
         
         if delegate != nil {
             
-            delegate?.filtersChanged(prefs)
+            delegate?.filtersChanged(searchPreference)
             dismissViewControllerAnimated(true, completion: nil)
         }
     }
