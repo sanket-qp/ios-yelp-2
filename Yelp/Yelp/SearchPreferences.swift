@@ -10,7 +10,7 @@ import Foundation
 class SearchPreferences {
 
     // default values
-    var searchTerm = "food"
+    var searchTerm = "Restaurants"
     var priceRange = 0
     var radiusText = "Auto"
     var radius = 1609

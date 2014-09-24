@@ -155,8 +155,19 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     func filtersChanged(filters: SearchPreferences) {
 
-        println("List :: Filters Changed :: \(filters.radiusText), \(filters.sortByText)")
-        yelpClient.search(filters.searchTerm)
+        println("List :: Filters Changed :: \(filters.radiusText), \(filters.sortByText), \(filters.categories)")
+        for c in filters.categories {
+        
+            println(YelpClient.getApiCategory(c))
+        }
+    
+        var apiCategories = filters.categories.map { (category: String) -> String in
+            
+            YelpClient.getApiCategory(category)
+        }
+        
+        var categories = YelpClient.combine(apiCategories, separator: ",")
+        yelpClient.search(filters.searchTerm, radius: filters.radius, sort: filters.sortBy, categories: categories)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
