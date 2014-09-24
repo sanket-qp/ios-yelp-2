@@ -393,40 +393,40 @@
                             <userLayoutGuide location="65" affinity="minY"/>
                         </userGuides>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="71" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="fm6-u7-qWx">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="fm6-u7-qWx">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="0.94608234489999998" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" white="0.94608234489999998" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.94608234489999998" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FilterCell" rowHeight="71" id="I6B-yC-eeF" customClass="FilterCell" customModule="Yelp" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FilterCell" rowHeight="80" id="I6B-yC-eeF" customClass="FilterCell" customModule="Yelp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="I6B-yC-eeF" id="GhQ-C0-44K">
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <userGuides>
+                                                <userLayoutGuide location="43" affinity="minY"/>
+                                            </userGuides>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yuv-Ns-Dir">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yuv-Ns-Dir">
                                                     <rect key="frame" x="29" y="29" width="158" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="158" id="PD2-nM-H3p"/>
-                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t2t-Ds-EuG">
-                                                    <rect key="frame" x="474" y="24" width="51" height="31"/>
+                                                    <rect key="frame" x="474" y="24" width="51" height="30"/>
                                                     <connections>
                                                         <action selector="switchDidChange:" destination="I6B-yC-eeF" eventType="valueChanged" id="M4K-an-BAL"/>
                                                     </connections>
                                                 </switch>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Yuv-Ns-Dir" firstAttribute="top" secondItem="GhQ-C0-44K" secondAttribute="top" constant="29" id="3lN-OY-Dgy"/>
-                                                <constraint firstAttribute="trailing" secondItem="t2t-Ds-EuG" secondAttribute="trailing" constant="77" id="R09-Vv-NJl"/>
-                                                <constraint firstItem="Yuv-Ns-Dir" firstAttribute="leading" secondItem="GhQ-C0-44K" secondAttribute="leading" constant="29" id="XZd-QQ-OWR"/>
-                                                <constraint firstAttribute="bottom" secondItem="t2t-Ds-EuG" secondAttribute="bottom" constant="16" id="b9C-J9-7D4"/>
-                                                <constraint firstItem="t2t-Ds-EuG" firstAttribute="top" secondItem="GhQ-C0-44K" secondAttribute="top" constant="24" id="lo4-zl-QkE"/>
+                                                <constraint firstItem="t2t-Ds-EuG" firstAttribute="top" secondItem="GhQ-C0-44K" secondAttribute="top" constant="24" id="1D7-5H-5EO"/>
+                                                <constraint firstItem="Yuv-Ns-Dir" firstAttribute="leading" secondItem="GhQ-C0-44K" secondAttribute="leading" constant="29" id="JNY-dk-MgD"/>
+                                                <constraint firstAttribute="trailing" secondItem="t2t-Ds-EuG" secondAttribute="trailing" constant="77" id="Qqd-Iz-dUK"/>
+                                                <constraint firstAttribute="bottom" secondItem="t2t-Ds-EuG" secondAttribute="bottom" constant="25" id="ZlQ-HL-rKz"/>
+                                                <constraint firstItem="Yuv-Ns-Dir" firstAttribute="top" secondItem="GhQ-C0-44K" secondAttribute="top" constant="29" id="yES-5u-umn"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -439,10 +439,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="sIm-Ig-I1w" firstAttribute="top" secondItem="fm6-u7-qWx" secondAttribute="bottom" id="8yS-oi-KkT"/>
-                            <constraint firstItem="fm6-u7-qWx" firstAttribute="leading" secondItem="zOt-Sj-8fN" secondAttribute="leading" id="EHz-vj-SYb"/>
-                            <constraint firstAttribute="trailing" secondItem="fm6-u7-qWx" secondAttribute="trailing" id="Gx7-AI-ixn"/>
-                            <constraint firstItem="fm6-u7-qWx" firstAttribute="top" secondItem="zOt-Sj-8fN" secondAttribute="top" id="lId-SY-LEs"/>
+                            <constraint firstItem="fm6-u7-qWx" firstAttribute="leading" secondItem="zOt-Sj-8fN" secondAttribute="leading" id="8RG-Y6-r0u"/>
+                            <constraint firstItem="fm6-u7-qWx" firstAttribute="top" secondItem="zOt-Sj-8fN" secondAttribute="top" id="Nbm-AL-GiC"/>
+                            <constraint firstAttribute="trailing" secondItem="fm6-u7-qWx" secondAttribute="trailing" id="eyJ-c2-Lon"/>
+                            <constraint firstItem="sIm-Ig-I1w" firstAttribute="top" secondItem="fm6-u7-qWx" secondAttribute="bottom" id="k9H-Eb-f1U"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Filters" id="WaZ-gq-HcI">

@@ -22,6 +22,7 @@ class FilterController: UIViewController, UITableViewDelegate, UITableViewDataSo
     //var sections = ["Price", "Distance", "Sort By", "Categories"]
     var sections = ["Distance", "Sort By", "Categories"]
     var isExpanded: [Int: Bool] = [Int: Bool]()
+    var isExpandable: [Int: Bool] = [Int: Bool]()
     var categories = YelpClient.supportedCategories()
     var radiuses = ["Auto", "0.3 Miles", "1 Mile", "5 Mile", "20 Mile"]
     var sortBy = ["Best Match", "Distance", "Highest Rated"]
@@ -58,6 +59,11 @@ class FilterController: UIViewController, UITableViewDelegate, UITableViewDataSo
         tableView.rowHeight = UITableViewAutomaticDimension
         items = [radiuses.count, sortBy.count, 10]
         //allSections = ["Distance": distanceSection, "Sort By": sortBySection, "Categories": categoriesSection]
+        
+        for (index, sectionName) in enumerate(sections) {
+        
+            isExpandable[index] = true
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -89,6 +95,7 @@ class FilterController: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
+        tableView.deselectRowAtIndexPath(indexPath, animated: false)
         toggleSection(indexPath)
     }
     
@@ -134,11 +141,25 @@ class FilterController: UIViewController, UITableViewDelegate, UITableViewDataSo
     func toggleSection(indexPath: NSIndexPath) {
     
         let expanded = isExpanded[indexPath.section] ?? false
-        
+        println(expanded)
         expanded ? collapseSection(indexPath) : expandSection(indexPath)
         
-        tableView.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: UITableViewRowAnimation.Fade)
-
+        
+        let section = indexPath.section
+        let sectionName = sections[section]
+        
+        if let expandable = isExpandable[section] {
+            
+            if expandable {
+                
+                tableView.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: UITableViewRowAnimation.Fade)
+            }
+        }
+        
+        if sectionName == "Categories" {
+        
+            isExpandable[section] = false
+        }
     }
     
     func collapseSection(indexPath: NSIndexPath) {
@@ -163,6 +184,7 @@ class FilterController: UIViewController, UITableViewDelegate, UITableViewDataSo
             cell.filterSwitch.setOn(true, animated: true)
             //swapCells(indexPath.row, to: 0)
             isExpanded[section] = false
+            isExpandable[section] = true
             
 
         case "Sort By":
@@ -171,13 +193,27 @@ class FilterController: UIViewController, UITableViewDelegate, UITableViewDataSo
             chosenSortString = selected!
             cell.toggleSwitch()
             isExpanded[section] = false
+            isExpandable[section] = true
             
         case "Categories":
             // we just toggle switch here, we never collapse categories section once it's expanded
             //cell.filterSwitch.on ? searchPreference.removeCategory(selected!) : searchPreference.addCategory(selected!)
-            cell.filterSwitch.on ? removeCategory(selected!) : addCategory(selected!)
-            cell.toggleSwitch()
-            println(chosenCategories)
+            if cell.filterSwitch.on  {
+                
+                println("switching off")
+                removeCategory(selected!)
+                cell.filterSwitch.setOn(false, animated: true)
+                println(chosenCategories)
+                println("---------------")
+            
+            } else {
+                
+                println("switching on")
+                addCategory(selected!)
+                cell.filterSwitch.setOn(true, animated: true)
+                println(chosenCategories)
+                println("---------------")
+            }
             
         default:
             break
@@ -187,7 +223,7 @@ class FilterController: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     func expandSection(indexPath: NSIndexPath) {
     
-    
+        println("expand section")
         isExpanded[indexPath.section] = true
     }
     
@@ -250,8 +286,8 @@ class FilterController: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     func categoryCell(row: Int, expanded: Bool) -> FilterCell {
     
-        
-        return getCell(categories[row], expanded: expanded, selected: false)
+        let selected = isChosenCategory(categories[row])
+        return getCell(categories[row], expanded: expanded, selected: selected)
     }
     
     
@@ -261,6 +297,19 @@ class FilterController: UIViewController, UITableViewDelegate, UITableViewDataSo
         cell.filterLabel.text = text
         cell.filterSwitch.setOn(selected, animated: true)
         return cell
+    }
+    
+    func isChosenCategory(category: String) -> Bool {
+    
+        for c in chosenCategories {
+        
+            if c == category {
+                
+                return true
+            }
+        }
+        
+        return false
     }
 
     
@@ -296,4 +345,5 @@ class FilterController: UIViewController, UITableViewDelegate, UITableViewDataSo
             dismissViewControllerAnimated(true, completion: nil)
         }
     }
+    
 }

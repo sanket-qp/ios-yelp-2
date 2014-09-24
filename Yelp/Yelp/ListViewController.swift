@@ -43,6 +43,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         yelpClient = YelpClient(consumerKey: consumerKey, consumerSecret: consumerSecret, accessToken: accessToken, accessSecret: accessSecret)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshData:" , name: "searchFinished", object: nil)
         yelpClient.search(searchPreferences.searchTerm)
+        showLoading()
     }
     
     
@@ -66,6 +67,7 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
             println("search display")
             self.searchDisplayController?.active = false
             isSearch = false
+            MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
         }
         
         tableView.reloadData()
@@ -153,6 +155,14 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         println(self.filteredCategories.count)
     }
 
+    func showLoading() {
+    
+        let loading = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        loading.mode = MBProgressHUDModeCustomView
+        loading.labelText = "Loading"
+        isSearch = true
+    }
+    
     func filtersChanged(filters: SearchPreferences) {
 
         println("List :: Filters Changed :: \(filters.radiusText), \(filters.sortByText), \(filters.categories)")
@@ -168,6 +178,8 @@ class ListViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         var categories = YelpClient.combine(apiCategories, separator: ",")
         yelpClient.search(filters.searchTerm, radius: filters.radius, sort: filters.sortBy, categories: categories)
+        showLoading()
+        
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
