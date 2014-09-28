@@ -202,7 +202,7 @@
                                                     <color key="textColor" white="0.51585310220000002" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="XBy-9H-gCs">
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="XBy-9H-gCs">
                                                     <rect key="frame" x="8" y="52" width="584" height="29"/>
                                                     <segments>
                                                         <segment title="$"/>
@@ -389,13 +389,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <userGuides>
-                            <userLayoutGuide location="24" affinity="minX"/>
                             <userLayoutGuide location="65" affinity="minY"/>
                         </userGuides>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="fm6-u7-qWx">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="fm6-u7-qWx">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <color key="backgroundColor" white="0.94608234489999998" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <color key="separatorColor" white="0.94608234489999998" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.94608234489999998" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -404,30 +403,37 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="I6B-yC-eeF" id="GhQ-C0-44K">
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <userGuides>
-                                                <userLayoutGuide location="43" affinity="minY"/>
-                                            </userGuides>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yuv-Ns-Dir">
-                                                    <rect key="frame" x="29" y="29" width="158" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yuv-Ns-Dir">
+                                                    <rect key="frame" x="29" y="29" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t2t-Ds-EuG">
-                                                    <rect key="frame" x="474" y="24" width="51" height="30"/>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t2t-Ds-EuG">
+                                                    <rect key="frame" x="516" y="25" width="51" height="31"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="31" id="iyB-BR-Jxj"/>
+                                                        <constraint firstAttribute="width" constant="49" id="qOJ-jO-0Zc"/>
+                                                    </constraints>
                                                     <connections>
                                                         <action selector="switchDidChange:" destination="I6B-yC-eeF" eventType="valueChanged" id="M4K-an-BAL"/>
                                                     </connections>
                                                 </switch>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="t2t-Ds-EuG" firstAttribute="top" secondItem="GhQ-C0-44K" secondAttribute="top" constant="24" id="1D7-5H-5EO"/>
+                                                <constraint firstItem="t2t-Ds-EuG" firstAttribute="top" secondItem="GhQ-C0-44K" secondAttribute="top" constant="25" id="0mP-8Y-Ja2"/>
                                                 <constraint firstItem="Yuv-Ns-Dir" firstAttribute="leading" secondItem="GhQ-C0-44K" secondAttribute="leading" constant="29" id="JNY-dk-MgD"/>
-                                                <constraint firstAttribute="trailing" secondItem="t2t-Ds-EuG" secondAttribute="trailing" constant="77" id="Qqd-Iz-dUK"/>
-                                                <constraint firstAttribute="bottom" secondItem="t2t-Ds-EuG" secondAttribute="bottom" constant="25" id="ZlQ-HL-rKz"/>
+                                                <constraint firstAttribute="trailing" secondItem="t2t-Ds-EuG" secondAttribute="trailing" constant="35" id="McH-xc-2h2"/>
+                                                <constraint firstAttribute="bottom" secondItem="t2t-Ds-EuG" secondAttribute="bottom" constant="23" id="bUf-4v-8dm"/>
+                                                <constraint firstAttribute="bottom" secondItem="Yuv-Ns-Dir" secondAttribute="bottom" constant="29" id="gbt-gB-NQa"/>
                                                 <constraint firstItem="Yuv-Ns-Dir" firstAttribute="top" secondItem="GhQ-C0-44K" secondAttribute="top" constant="29" id="yES-5u-umn"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="bUf-4v-8dm"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="filterLabel" destination="Yuv-Ns-Dir" id="Sdb-sF-amc"/>
@@ -465,7 +471,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XhL-dD-WCR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1378" y="2601"/>
+            <point key="canvasLocation" x="1378" y="2600"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="QEp-rp-jCy">

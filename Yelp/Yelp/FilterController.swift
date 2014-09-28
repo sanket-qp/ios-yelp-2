@@ -56,7 +56,8 @@ class FilterController: UIViewController, UITableViewDelegate, UITableViewDataSo
         // Do any additional setup after loading the view
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = 100
+        tableView.estimatedRowHeight = 100
         items = [radiuses.count, sortBy.count, 10]
         //allSections = ["Distance": distanceSection, "Sort By": sortBySection, "Categories": categoriesSection]
         
@@ -133,9 +134,20 @@ class FilterController: UIViewController, UITableViewDelegate, UITableViewDataSo
         return cell
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        
+//        return sections[section]
+//    }
+    
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        var headerView = UIView(frame: CGRect(x: 0, y: 0, width: 320, height: 50))
+        headerView.backgroundColor = UIColor.redColor()
         
-        return sections[section]
+        return headerView
+    }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
     }
     
     func toggleSection(indexPath: NSIndexPath) {
